@@ -1,0 +1,454 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    font-family: "Open Sans", sans-serif;
+}
+
+.menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+
+div.menu-container > img {
+    position: absolute;
+    top: -65px;
+}
+
+.menu {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 25px;
+    padding: 8px 0;
+    background-color: #1F2021;
+    margin: 0;
+    list-style: none;
+}
+
+.second-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    padding: 8px 0;
+    background-color: #1F2021;
+    margin: 0;
+    list-style: none;
+}
+
+.menu li a, .second-menu li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+.menu img, .second-menu img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.menu-container:hover .menu,
+.menu-container:hover .second-menu {
+    background-color: white;
+    cursor: pointer;
+}
+
+.menu-container:hover .menu li a,
+.menu-container:hover .second-menu li a {
+    color: black;
+}
+
+.menu-container:hover .menu li a img,
+.menu-container:hover .second-menu li a img {
+    filter: invert(1);
+}
+
+div.menu-container:hover > img {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+/* Stili specifici per la ricerca */
+.search-main {
+    margin-top: 120px;
+    padding: 2rem;
+    min-height: 60vh;
+}
+
+.search-container-main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-title {
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    color: #1f2021;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.search-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.search-subtitle strong {
+    color: #f47c00;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor:pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    border-color: #ddd;
+}
+
+.product-image {
+    margin-bottom: 1.5rem;
+}
+
+.product-image img {
+    max-width: 100%;
+    height: 300px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.no-image {
+    width: 100%;
+    height: 200px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.product-info h3 {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #1f2021;
+    line-height: 1.3;
+}
+
+.product-info .price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #f47c00;
+    margin-bottom: 1.2rem;
+    font-family: "Roboto", sans-serif;
+}
+
+.details-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #1f2021;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: "Open Sans", sans-serif;
+}
+
+.details-btn:hover {
+    background: #f47c00;
+    transform: translateY(-2px);
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #666;
+    grid-column: 1 / -1;
+}
+
+.no-results p {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.no-results p:last-child {
+    font-size: 1rem;
+    color: #888;
+}
+
+/* Stili per la barra di ricerca */
+.search-container {
+    position: relative;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 5px 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-form:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#ricerca {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    padding: 6px 8px;
+    width: 150px;
+    transition: width 0.3s ease;
+}
+
+#ricerca::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#ricerca:focus {
+    width: 180px;
+}
+
+.menu-container:hover .search-form {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu-container:hover #ricerca {
+    color: black;
+}
+
+.menu-container:hover #ricerca::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* Footer */
+footer {
+    background-color: #151515;
+    color: #ffffff;
+    padding: 50px 0;
+    font-family: Arial, sans-serif;
+    margin-top: 4rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.footer-column {
+    margin: 20px;
+    min-width: 200px;
+}
+
+.footer-column h4 {
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #f47c00;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 15px;
+}
+
+.footer-column ul li a:hover {
+    color: #f47c00;
+}
+
+.social-icons a {
+    font-size: 28px;
+    color: #bbb;
+    margin-right: 12px;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #f47c00;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .menu-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 105vh;
+        background-color: #1F2021;
+        z-index: 999;
+        overflow-y: auto;
+    }
+
+    #menu-toggle:checked ~ .menu-container {
+        display: block;
+    }
+
+    .menu, .second-menu {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .menu li, .second-menu li {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .hamburger {
+        display: flex !important;
+    }
+
+    .search-main {
+        margin-top: 80px;
+        padding: 1rem;
+    }
+
+    .search-title {
+        font-size: 2rem;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .product-card {
+        padding: 1.2rem;
+    }
+
+    .product-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .product-info .price {
+        font-size: 1.2rem;
+    }
+
+    .details-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .search-title {
+        font-size: 1.8rem;
+    }
+
+    .search-main {
+        padding: 0.8rem;
+    }
+}

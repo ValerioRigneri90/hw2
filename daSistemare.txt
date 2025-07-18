@@ -1,0 +1,2 @@
+
+sistemare il css delle varie pagine nella modalità mobile la barra di ricerca che si sovrappone con il menù hamburger dei prodotti
