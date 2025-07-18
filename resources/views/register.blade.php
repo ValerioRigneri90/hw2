@@ -10,18 +10,9 @@
 
 
 
-     <script>
+    <script>
 
-        window.loginUrl = "{{ route('login') }}";
-        @if ($flag)
-            window.flag = true; // utente loggato
-        @else
             window.flag = false; // utente non loggato
-
-        @endif
-
-
-
 
 </script>
 
@@ -235,12 +226,12 @@
                     </div>
                 </div>
             </div>
-            <div class="newsletter-container">
+          <div class="newsletter-container">
                 <h4>Iscriviti alla Newsletter</h4>
                 <p>Ricevi offerte esclusive e aggiornamenti</p>
                 <form>
                     <input id="footer-input" type="email" placeholder="Inserisci la tua email">
-                    <button type="submit">Iscriviti</button>
+                    <button id="footer-button" type="submit">Iscriviti</button>
                 </form>
             </div>
         </div>

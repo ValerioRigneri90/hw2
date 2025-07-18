@@ -8,6 +8,7 @@ use App\Http\Controllers\ValidationController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\NewsletterController;
 
 /* uso get per mostrare il form di registrazione(Recuperare e visualizzare dati) e post per processare i dati */
 
@@ -27,17 +28,22 @@ Route::get("index",[IndexController::class,"showIndex"])->name("index");
 
 Route::get("/api/testimonials",[IndexController::class,"showTestimonials"])->name("testimonials");
 
-Route::get("products/{categoria}",[ProductController::class,"showProducst"])->name("products");
+Route::get("products/{categoria}",[ProductController::class,"showProducts"])->name("products");
 
 Route::get("product/{id}",[ProductController::class,"showProductDetails"])->name("product");
 
 Route::get("searchProduct", [ProductController::class, "searchProduct"])->name("searchProduct");
 
-// Cart routes
+
+Route::post("/newsletter/subscribe", [NewsletterController::class, "subscribe"]);
+
+
 Route::get("cart", [CartController::class, "showCart"])->name("cart.show");
+
 Route::post("cart/action", [CartController::class, "handleCartAction"])->name("cart.action");
 
-// Checkout routes
+
 Route::get("checkout", [CartController::class, "showCheckout"])->name("checkout.show");
+
 Route::get("checkout/success", [CartController::class, "checkoutSuccess"])->name("checkout.success");
 

@@ -271,7 +271,7 @@ formRicerca.addEventListener("submit",ricercaElemento);
 
 
 
-// Blocco accesso carrello se non loggato
+// Blocco accesso carrello in registrazione
 const cartLink = document.querySelector(".cart-link");
 
     cartLink.addEventListener("click", bloccaCarrello);
@@ -281,7 +281,89 @@ function bloccaCarrello(event) {
     if (!window.flag) {
         event.preventDefault();
         alert("Devi essere loggato per accedere al carrello");
-        window.location.href = window.loginUrl;
         return;
+    }
+}
+
+
+
+
+
+function onJsonNewsletter(json)
+{
+
+    if(!json.flag && json.error==="non_loggato")
+    {
+        alert(json.message);
+        const temp = document.querySelector("#footer-input");
+        temp.value = ""; // pulisco il campo di input
+        window.location.href=window.loginUrl;
+        return;
+    }
+
+    if(!json.flag && json.error==="iscritto")
+    {
+        alert(json.message);
+        const temp = document.querySelector("#footer-input");
+        temp.value = ""; // pulisco il campo di input
+        return;
+    }
+
+
+    if(json.flag && json.success=="iscrizione_corretta")
+    {
+        alert(json.message);
+        const temp = document.querySelector("#footer-input");
+        temp.value = ""; // pulisco il campo di input
+        return;
+    }
+
+    if(!json.flag && json.error==="email_non_valida")
+    {
+        alert(json.message);
+        const temp = document.querySelector("#footer-input");
+        temp.value = ""; // pulisco il campo di input
+        return;
+    }
+}
+
+
+
+// prendiamo la risposta del server e laconvertiamo in oggetto javascript
+function onResponseNewsletter(response) {
+    return response.json();
+}
+
+
+
+const butttonFooter=document.querySelector("#footer-button");
+butttonFooter.addEventListener("click",bloccaButtonFooter);
+
+
+function bloccaButtonFooter(event) {
+    event.preventDefault();
+
+    const temp = document.querySelector("#footer-input");
+    const value = temp.value.trim();
+
+    if(value.length == 0)
+        {
+        alert("Il campo non può essere vuoto");
+        return;
+    }
+    else
+    {
+
+            fetch("/newsletter/subscribe",{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ // convertiamo l'oggetto in una stringa JSON
+                    email: value
+                })
+            }).then(onResponseNewsletter)
+            .then(onJsonNewsletter);
     }
 }

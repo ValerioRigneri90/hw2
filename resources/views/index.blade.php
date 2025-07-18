@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dreame</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -303,7 +304,7 @@
                 <p>Ricevi offerte esclusive e aggiornamenti</p>
                 <form>
                     <input id="footer-input" type="email" placeholder="Inserisci la tua email">
-                    <button type="submit">Iscriviti</button>
+                    <button id="footer-button" type="submit">Iscriviti</button>
                 </form>
             </div>
         </div>

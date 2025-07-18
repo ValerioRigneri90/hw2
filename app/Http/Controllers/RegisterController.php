@@ -14,6 +14,7 @@ class RegisterController extends Controller
         /*
         se l'utente è già loggato, reindirizza alla home
         */
+        
 
         if(Session::get("user_id")) {
             return redirect()->route("index");// Se l'utente è già loggato, reindirizza alla home
@@ -28,7 +29,7 @@ class RegisterController extends Controller
 
 
 
- 
+
 public function do_register()
 {
 

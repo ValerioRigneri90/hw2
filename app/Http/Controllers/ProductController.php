@@ -10,7 +10,7 @@ use App\Models\DescriptionProduct;
 use App\Models\ProductImage;
 class ProductController extends Controller
 {
-public function showProducst($categoria=null)
+public function showProducts($categoria=null)
     {
 
     $flag=false;
@@ -123,7 +123,10 @@ if($user_id)
             $priceProduct=$product->price;
         }
 
-
+        else
+        {
+            return redirect()->route('index'); // Reindirizza alla pagina index se il prodotto non esiste
+        }
 
         $result2=DescriptionProduct::where("productId",$productId)->get(["content"]);
         $temp=$result2->first(); // Recupera la prima descrizione del prodotto
