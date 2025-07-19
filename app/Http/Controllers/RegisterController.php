@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
     public function register_form()
@@ -14,7 +14,7 @@ class RegisterController extends Controller
         /*
         se l'utente è già loggato, reindirizza alla home
         */
-        
+
 
         if(Session::get("user_id")) {
             return redirect()->route("index");// Se l'utente è già loggato, reindirizza alla home
@@ -171,6 +171,10 @@ public function do_register()
     $user->username = request("username");
     $user->password = password_hash(request("password"),PASSWORD_BCRYPT); // Cripta la password
     $user->save(); // Salva l'utente nel database
+
+    Mail::raw("Ciao " . $user->username . "! \nGrazie per esserti registrato! \nBenvenuto nella nostra community e buono shopping!", function ($message) use ($user) {
+        $message->to($user->email)->subject("🎉 Benvenuto nel mondo Dreame!");
+    });
 
 
     //login

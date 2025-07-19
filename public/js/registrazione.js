@@ -297,7 +297,6 @@ function onJsonNewsletter(json)
         alert(json.message);
         const temp = document.querySelector("#footer-input");
         temp.value = ""; // pulisco il campo di input
-        window.location.href=window.loginUrl;
         return;
     }
 

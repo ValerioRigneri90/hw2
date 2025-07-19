@@ -1,4 +1,3 @@
-
 const subMenButton=document.querySelector(".toggle-btn");
 subMenButton.addEventListener("click",showSectionSubmenu);
 
@@ -99,7 +98,7 @@ function onJsonNewsletter(json)
         alert(json.message);
         const temp = document.querySelector("#footer-input");
         temp.value = ""; // pulisco il campo di input
-        window.location.href=window.loginUrl;
+
         return;
     }
 
@@ -148,24 +147,117 @@ function bloccaButtonFooter(event) {
     const temp = document.querySelector("#footer-input");
     const value = temp.value.trim();
 
-    if(value.length == 0)
-        {
+    if(value.length == 0) {
         alert("Il campo non può essere vuoto");
         return;
     }
-    else
-    {
+    else {
+        fetch("/newsletter/subscribe", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // ← CORRETTO
+            },
+            body: JSON.stringify({
+                email: value
+            })
+        }).then(onResponseNewsletter)
+        .then(onJsonNewsletter);
+    }
+}
 
-            fetch("/newsletter/subscribe",{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ // convertiamo l'oggetto in una stringa JSON
-                    email: value
-                })
-            }).then(onResponseNewsletter)
-            .then(onJsonNewsletter);
+// FUNZIONI SEMPLICI PER RESET PASSWORD
+function openResetModal() {
+    document.getElementById('resetModal').style.display = 'block';
+    document.getElementById('step1').style.display = 'block';
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('resetMessage').innerHTML = '';
+}
+
+function closeResetModal() {
+    document.getElementById('resetModal').style.display = 'none';
+}
+
+function sendCode() {
+    const email = document.getElementById('resetEmail').value;
+
+    if (!email) {
+        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">Inserisci email</div>';
+        return;
+    }
+
+    // Validazione formato email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(email)) {
+        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">Email non valida</div>';
+        return;
+    }
+
+
+    // Pulisci eventuali messaggi precedenti
+    document.getElementById('resetMessage').innerHTML = '';
+
+    // Mostra "Invio..." solo quando effettivamente inviamo
+    document.getElementById('resetMessage').innerHTML = '<div style="color:blue;">Invio...</div>';
+
+    fetch('/send-reset-code', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ email: email })
+    }).then(onResponsePassword).then(onJsonPassword);
+}function resetPassword() {
+    const email = document.getElementById('resetEmail').value;
+    const code = document.getElementById('resetCode').value;
+    const password = document.getElementById('newPassword').value;
+
+    if (!code || !password) {
+        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">Compila campi</div>';
+        return;
+    }
+
+    // Pulisci eventuali messaggi precedenti
+    document.getElementById('resetMessage').innerHTML = '';
+
+    // Mostra "Aggiorno..." solo quando effettivamente inviamo
+    document.getElementById('resetMessage').innerHTML = '<div style="color:blue;">Aggiorno...</div>';
+
+    fetch('/reset-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            email: email,
+            code: code,
+            password: password
+        })
+    }).then(onResponsePassword).then(onJsonPassword);
+}
+
+function onResponsePassword(response) {
+    return response.json();
+}
+
+function onJsonPassword(json) {
+    if (json.success) {
+        document.getElementById('resetMessage').innerHTML = '<div style="color:green;">' + json.success + '</div>';
+
+        if (json.success === 'Codice inviato!') {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
+
+        if (json.success === 'Password aggiornata!') {
+            setTimeout(() => {
+                closeResetModal();
+            }, 2000);
+        }
+    } else {
+        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">' + json.error + '</div>';
     }
 }

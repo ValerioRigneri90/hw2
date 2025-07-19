@@ -917,3 +917,206 @@ form button:hover {
         margin-right: 10px;
     }
 }
+
+/* ============ STILI MODAL RESET PASSWORD ============ */
+
+/* Overlay del modal */
+.reset-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Contenuto del modal */
+.modal-content {
+    background: white;
+    margin: 10% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Header del modal */
+.modal-header {
+    background: #f47c00;
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    flex: 1;
+}
+
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+/* Step del modal */
+.modal-step {
+    padding: 25px;
+}
+
+.step-title {
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Input del modal */
+.modal-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.modal-input:focus {
+    outline: none;
+    border-color: #f47c00;
+    box-shadow: 0 0 5px rgba(244, 124, 0, 0.3);
+}
+
+/* Bottoni del modal */
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background: #f47c00;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #e46b00;
+}
+
+.btn-success {
+    background: #ff8c00;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #e07b00;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+}
+
+/* Footer del modal */
+.modal-footer {
+    padding: 0 25px 25px 25px;
+}
+
+/* Messaggi di stato */
+.reset-message {
+    margin: 15px 25px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    min-height: 20px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+}
+
+/* Messaggio di errore semplice */
+.reset-message div[style*="color:red"] {
+    background: #ffebee;
+    border: 1px solid #f44336;
+    color: #c62828 !important;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Messaggio di successo semplice */
+.reset-message div[style*="color:green"] {
+    background: #e8f5e8;
+    border: 1px solid #4caf50;
+    color: #2e7d32 !important;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Messaggio di caricamento semplice */
+.reset-message div[style*="color:blue"] {
+    background: #e3f2fd;
+    border: 1px solid #2196f3;
+    color: #1565c0 !important;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .modal-content {
+        margin: 5% auto;
+        width: 95%;
+    }
+
+    .modal-header {
+        padding: 15px 20px;
+    }
+
+    .modal-header h3 {
+        font-size: 18px;
+    }
+
+    .modal-step {
+        padding: 20px;
+    }
+
+    .modal-input {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}

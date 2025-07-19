@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login</title>
     <link rel="stylesheet" href="{{ asset("css/login.css") }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,14 +13,7 @@
 
      <script>
 
-       @if ($flag)
-           window.flag = true; // utente loggato
-       @else
-           window.flag = false; // utente non loggato
-
-        @endif
-
-
+       window.flag = false; // utente non loggato
 
 
 </script>
@@ -126,7 +120,7 @@
 
 
 
-            <form name="form-login" action="{{ route("login") }}" method="POST" class="login-form">
+            <form name="form-login" action="{{ route('do_login') }}" method="POST" class="login-form">
                 @csrf
 
                 <div class="input-group">
@@ -140,7 +134,7 @@
                 </div>
 
                 <div class="form-options">
-                    <a href="#" class="forgot-password">Password dimenticata?</a>
+                    <a href="#" onclick="openResetModal()" class="forgot-password">Password dimenticata?</a>
                 </div>
 
                 <input type="submit" value="Accedi" class="login-btn ">
@@ -183,7 +177,7 @@
                     </div>
                 </div>
             </div>
-            <div class="newsletter-container">
+          <div class="newsletter-container">
                 <h4>Iscriviti alla Newsletter</h4>
                 <p>Ricevi offerte esclusive e aggiornamenti</p>
                 <form>
@@ -206,7 +200,36 @@
         </div>
     </footer>
 
+    <!-- MODAL SEMPLICE PER RESET PASSWORD -->
+    <div id="resetModal" class="reset-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reset Password</h3>
+                <span class="close-btn" onclick="closeResetModal()">&times;</span>
+            </div>
 
+            <div id="resetMessage" class="reset-message"></div>
+
+            <!-- STEP 1: Inserisci Email -->
+            <div id="step1" class="modal-step">
+                <p class="step-title">Inserisci la tua email:</p>
+                <input type="email" id="resetEmail" placeholder="La tua email" class="modal-input">
+                <button onclick="sendCode()" class="btn btn-primary">Invia Codice</button>
+            </div>
+
+            <!-- STEP 2: Inserisci Codice e Nuova Password -->
+            <div id="step2" class="modal-step" style="display:none;">
+                <p class="step-title">Inserisci il codice e la nuova password:</p>
+                <input type="text" id="resetCode" placeholder="Codice (6 cifre)" class="modal-input">
+                <input type="password" id="newPassword" placeholder="Nuova Password" class="modal-input">
+                <button onclick="resetPassword()" class="btn btn-success">Cambia Password</button>
+            </div>
+
+            <div class="modal-footer">
+                <button onclick="closeResetModal()" class="btn btn-secondary">Chiudi</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class LoginController extends Controller
@@ -82,9 +84,57 @@ public function logout()
     //distrugge la sessione corrente
     Session::flush(); //
     return redirect()->route("index"); // Reindirizza alla home page dopo il logout
+}
 
+// METODI SEMPLICI PER RESET PASSWORD
+public function sendResetCode(Request $request)
+{
+    $email = $request->input('email');
 
+    // Trova utente
+    $user = User::where('email', $email)->first();
+    if (!$user) {
+        return response()->json(['error' => 'Email non trovata']);
+    }
 
+    // Genera codice semplice
+    $code = rand(100000, 999999);
+
+    // Salva nel database
+    $user->reset_code = $code;
+    $user->save();
+
+    // Invia email semplice
+    Mail::raw("Il tuo codice di reset è: {$code}", function ($message) use ($email) {
+        $message->to($email)->subject('Reset Password');
+    });
+
+    return response()->json(['success' => 'Codice inviato!']);
+}
+
+public function resetPassword(Request $request)
+{
+    $email = $request->input('email');
+    $code = $request->input('code');
+    $password = $request->input('password');
+
+    // Trova utente
+    $user = User::where('email', $email)->first();
+    if (!$user) {
+        return response()->json(['error' => 'Email non trovata']);
+    }
+
+    // Verifica codice
+    if ($user->reset_code != $code) {
+        return response()->json(['error' => 'Codice non valido']);
+    }
+
+    // Aggiorna password
+    $user->password = Hash::make($password);
+    $user->reset_code = null;
+    $user->save();
+
+    return response()->json(['success' => 'Password aggiornata!']);
 }
 
 }
