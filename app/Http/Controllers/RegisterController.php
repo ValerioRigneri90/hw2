@@ -15,7 +15,6 @@ class RegisterController extends Controller
         se l'utente è già loggato, reindirizza alla home
         */
 
-
         if(Session::get("user_id")) {
             return redirect()->route("index");// Se l'utente è già loggato, reindirizza alla home
         }
@@ -39,7 +38,7 @@ public function do_register()
 
         if(Session::get("user_id"))
         {
-            return redirect("")->route("index"); // Se l'utente è già loggato, reindirizza alla home
+            return redirect()->route("index"); // Se l'utente è già loggato, reindirizza alla home
         }
 
     /*controlla se i campi email,username,password e confermaPassword sono vuoti */
@@ -47,7 +46,8 @@ public function do_register()
     if(strlen(request("email"))==0 || strlen(request("username")) ==0 || strlen(request("password"))==0  || strlen(request("confirm_password"))==0 )
     {
             Session::put('error', 'empty_fields');
-            return redirect()->route("register") -> withInput();
+            return redirect()->route("register") -> withInput(); // Reindirizza alla pagina di registrazione con gli input precedenti
+
 
     }
 
@@ -88,7 +88,7 @@ public function do_register()
  /* controlla se l'email rispetta un formato valido */
     else if(!filter_var(request("email"), FILTER_VALIDATE_EMAIL)) /* ritorna false se l'email non rispetta un formato valido */
   {
-    Session::put('error', 'invalid_email'); // Email non valida
+     Session::put('error', 'invalid_email'); // Email non valida
      return redirect()->route("register") -> withInput();
   }
 
@@ -138,7 +138,7 @@ public function do_register()
 
   else if(!preg_match('/[0-9]/',request("password")))
   {
-    Session::put('error', 'password_missing_number'); // Password DEVE contenere almeno un numero
+     Session::put('error', 'password_missing_number'); // Password DEVE contenere almeno un numero
      return redirect()->route("register") -> withInput();
 
   }
@@ -157,7 +157,7 @@ public function do_register()
   /* controlla se la password e la conferma password sono uguali */
      else if(request("password") != request("confirm_password"))
     {
-        Session::put('error', 'password_mismatch');
+         Session::put('error', 'password_mismatch');
          return redirect()->route("register") -> withInput();
     }
 
@@ -179,7 +179,7 @@ public function do_register()
 
     //login
 
-    Session::put("user_id",$user->id); // Salva l'username dell'utente nella sessione
+    Session::put("user_id",$user->id); // Salva l'id dell'utente nella sessione
 
     return redirect()->route("index"); // Reindirizza alla home page dopo la registrazione
 

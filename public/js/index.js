@@ -4,10 +4,10 @@ function showTestimonials(event)
     const testimonialH2=document.querySelector(".testimonial-container h2");
     const testimonialWrapper=document.querySelector(".testimonial-wrapper");
     const button=event.target;
-    const h2Display=window.getComputedStyle(testimonialH2).display;
-    const wrapperDisplay=window.getComputedStyle(testimonialWrapper).display;
+    const h2Display = testimonialH2.style.display;
+    const wrapperDisplay = testimonialWrapper.style.display;
 
-    if(wrapperDisplay=="flex" &&h2Display=="block")
+    if(wrapperDisplay=="flex" && h2Display=="block")
     {
         testimonialH2.style.display="none";
         testimonialWrapper.style.display="none";
@@ -27,77 +27,6 @@ function showTestimonials(event)
 
 const button=document.querySelector("#testimonial-button");
 button.addEventListener("click",showTestimonials);
-
-
-
-
-function createBackgroundChanger() {
-    const bgButton = document.createElement('button');
-    bgButton.classList.add('bg-change-button');
-    bgButton.setAttribute('data-current-bg', '1');
-
-    bgButton.addEventListener('click', function() {
-        const header = document.querySelector('header');
-        const headerContent = header.querySelector('div');
-
-        const currentBg = bgButton.getAttribute('data-current-bg');
-
-        if (currentBg === '1') {
-            header.style.backgroundImage = 'none';
-
-            const videoBackground = document.createElement('video');
-            videoBackground.classList.add('video-background');
-
-            videoBackground.src = '../video/secondo_video.mp4';
-            videoBackground.autoplay = true;
-            videoBackground.loop = true;
-            videoBackground.muted = true;
-            videoBackground.playsInline = true;
-
-            header.insertBefore(videoBackground, header.firstChild);
-
-            headerContent.innerHTML = `
-                <div class="dreame-content">
-                    <h2 class="dreame-title">Dreame X50 Ultra Complete</h2>
-                    <p class="dreame-description">Rise Up, Clean Beneath</p>
-                    <a href="${window.productUrl3}"><button class="dreame-button">Per saperne di più</button></a>
-                </div>
-            `;
-
-            bgButton.setAttribute('data-current-bg', '2');
-        } else
-        {
-            const videoBackground = header.querySelector('.video-background');
-            if (videoBackground) {
-                header.removeChild(videoBackground);
-            }
-
-            header.style.backgroundImage = "url('../immagini/header.png')";
-
-            headerContent.innerHTML = `
-            <span>Novità</span>
-            <h1>Dreame H15 Pro Heat</h1>
-            <h3>Lava con il calore, pulisci con l'IA</h3>
-            <a href="${window.productUrl12}"><button>Compra Ora</button></a>
-            `;
-
-            bgButton.setAttribute('data-current-bg', '1');
-        }
-
-        bgButton.classList.toggle('active');
-    });
-
-    return bgButton;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const button = document.querySelector(".testimonial-container button");
-    button.addEventListener("click", showTestimonials);
-
-    const bgButton = createBackgroundChanger();
-    const header = document.querySelector('header');
-    header.appendChild(bgButton);
-});
 
 
 
@@ -210,17 +139,27 @@ function onResponse(response) {
 
 function onJson(json) {
     const testimonialWrapper = document.querySelector(".testimonial-wrapper");
-    testimonialWrapper.innerHTML = "";
+
+   
+    while (testimonialWrapper.firstChild) {
+        testimonialWrapper.removeChild(testimonialWrapper.firstChild);
+    }
 
 if(json.error)
 {
-    testimonialWrapper.innerHTML="<div class='error-message'>Errore nel caricamento dei dati: " + json.error + "</div>";
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "error-message";
+    errorDiv.textContent = "Errore nel caricamento dei dati: " + json.error;
+    testimonialWrapper.appendChild(errorDiv);
     return;
 }
 
 if(!json.results || json.results.length === 0)
     {
-    testimonialWrapper.innerHTML="<div class='error-message'>Nessun dato disponibile.</div>";
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "error-message";
+    errorDiv.textContent = "Nessun dato disponibile.";
+    testimonialWrapper.appendChild(errorDiv);
     return;
 }
 
@@ -236,12 +175,35 @@ if(!json.results || json.results.length === 0)
         testimonials.push(testimonial);
     }
     for (let i of testimonials) {
+        // Creo il contenitore principale
         const newDiv = document.createElement("div");
-        newDiv.classList.add("testimonial-card");
-        newDiv.innerHTML = ' <img src="' + i.image + '" alt="Testimonial">' +
-            '<h3>' + i.name + '</h3>' +
-            '<p>' + i.frase + '</p>' +
-            '<div class="stars">★★★★½</div>';
+        newDiv.className = "testimonial-card";
+
+        // Creo l'immagine
+        const img = document.createElement("img");
+        img.src = i.image;
+        img.alt = "Testimonial";
+
+        // Creo il nome
+        const h3 = document.createElement("h3");
+        h3.textContent = i.name;
+
+        // Creo il testo della frase
+        const p = document.createElement("p");
+        p.textContent = i.frase;
+
+        // Creo le stelle
+        const stars = document.createElement("div");
+        stars.className = "stars";
+        stars.textContent = "★★★★½";
+
+        // Aggiungo tutto al contenitore
+        newDiv.appendChild(img);
+        newDiv.appendChild(h3);
+        newDiv.appendChild(p);
+        newDiv.appendChild(stars);
+
+        // Aggiungo il contenitore al wrapper
         testimonialWrapper.appendChild(newDiv);
     }
 }
@@ -257,18 +219,15 @@ function fakeTestimonials() {
 
 
 
-
-
-
 const subMenButton=document.querySelector(".toggle-btn");
 subMenButton.addEventListener("click",showSectionSubmenu);
 
 function showSectionSubmenu(event) {
     event.preventDefault();
     const subMenu=document.querySelector(".submenu");
-    const subMenuDisplay=window.getComputedStyle(subMenu).display;
+    const subMenuDisplay = subMenu.style.display;
 
-    if(subMenuDisplay=="none")
+    if(subMenuDisplay === "none" || subMenuDisplay === "")
     {
         subMenu.style.display="block";
         subMenButton.textContent="-";

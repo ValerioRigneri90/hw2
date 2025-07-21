@@ -43,7 +43,7 @@ class ProductSeeder extends Seeder
             'name' => 'Asciugacapelli ad alta velocità Dreame Pocket',
             'description' => 'Asciugacapelli compatto e potente per uso quotidiano',
             'price' => 79.00,
-            'image' => 'Asciugacapelli_ad_alta_velocità_Dreame_Pocket.png',
+            'image' => 'Asciugacapelli_ad _alta _velocità_ Dreame_ Pocket.png',
             'category' => 'asciugacapelli'
         ]);
 

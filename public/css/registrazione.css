@@ -7,8 +7,6 @@ body{
 
 
 
-
-
 .menu-container {
     position: fixed;
     top: 0;
@@ -377,6 +375,10 @@ form button:hover {
         margin-left:15px;
     }
 
+    .second-menu li span {
+        margin-left: 35px;
+    }
+
     .menu-container:hover .menu,
     .menu-container:hover .second-menu {
         background-color: #1F2021;
@@ -401,7 +403,7 @@ form button:hover {
     .second-menu img {
         width: 30px;
         height: 30px;
-        margin-left: 3px;
+        margin-left: -20px;
     }
 
     .menu-container {
@@ -646,6 +648,10 @@ form button:hover {
         background: rgba(255, 255, 255, 0.1);
     }
 
+    .has-submenu {
+        order: 1;
+    }
+
     .has-submenu > a {
         display: flex;
         align-items: center;
@@ -845,6 +851,11 @@ form button:hover {
 }
 
 @media (max-width: 768px) {
+    .search-container {
+        order: -1;
+        margin-bottom: 15px;
+    }
+
     .search-form {
         background-color: rgba(255, 255, 255, 0.15);
         padding: 8px 12px;
@@ -855,10 +866,16 @@ form button:hover {
     #ricerca {
         width: 140px;
         font-size: 16px;
+        color: white !important;
+    }
+
+    #ricerca::placeholder {
+        color: white !important;
     }
 
     #ricerca:focus {
         width: 160px;
+        color: white !important;
     }
 
     .search-icon {

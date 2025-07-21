@@ -4,9 +4,9 @@ subMenButton.addEventListener("click",showSectionSubmenu);
 function showSectionSubmenu(event) {
     event.preventDefault();
     const subMenu=document.querySelector(".submenu");
-    const subMenuDisplay=window.getComputedStyle(subMenu).display;
+    const subMenuDisplay = subMenu.style.display;
 
-    if(subMenuDisplay=="none")
+    if(subMenuDisplay === "none" || subMenuDisplay === "")
     {
         subMenu.style.display="block";
         subMenButton.textContent="-";
@@ -17,6 +17,7 @@ function showSectionSubmenu(event) {
         subMenButton.textContent="+";
     }
 }
+
 
 
 function checkForm(event)
@@ -38,7 +39,7 @@ function checkForm(event)
 
 
     const errorSpans=document.querySelectorAll('span[style*="display: block"]'); /* seleziono
-    tutti gli span che sono visibili */
+    tutti gli span di errore che sono visibili */
 
     if(errorSpans.length > 0) /* se ci sono errori */
     {
@@ -64,7 +65,7 @@ function onResponseEmail(response) {
 
 function onJsonEmail(data) {
     const input = document.querySelector("#email");
-    const errorSpan = input.nextElementSibling;
+    const errorSpan =input.nextElementSibling; // prendo lo span di errore che si trova dopo l'input email
 
     if(data.error) {
         console.error("Errore dal server:", data.error);
@@ -82,7 +83,7 @@ function onJsonEmail(data) {
 
 function checkEmail() {
     const input=document.querySelector("#email");
-    const errorSpan=input.nextElementSibling;
+    const errorSpan=input.nextElementSibling; // prendo lo span di errore che si trova dopo l'input email
     const inputEmail=input.value.trim();
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
@@ -96,14 +97,11 @@ function checkEmail() {
         errorSpan.style.display="none";
     }
 
+
     fetch("/api/check_email?email="+encodeURIComponent(inputEmail))
         .then(onResponseEmail)
         .then(onJsonEmail)
-        .catch(error => {
-            console.error("Errore durante la verifica dell'email:", error);
-            errorSpan.textContent="Errore durante la verifica dell'email";
-            errorSpan.style.display="block";
-        });
+
 }
 
 document.querySelector("#email").addEventListener("blur", checkEmail); /* controllo l'email quando l'utente esce dal campo email */
@@ -155,12 +153,7 @@ function checkUsername() {
 
     fetch("/api/check_username?username="+encodeURIComponent(inputUsername))
         .then(onResponseUsername)
-        .then(onJsonUsername)
-        .catch(error => {
-            console.error("Errore durante la verifica del nome utente:", error);
-            errorSpan.textContent="Errore durante la verifica del nome utente";
-            errorSpan.style.display="block";
-        });
+        .then(onJsonUsername);
 }
 
 document.querySelector("#username").addEventListener("blur", checkUsername); /* controllo il nome utente quando l'utente esce dal campo username */
@@ -169,7 +162,7 @@ document.querySelector("#username").addEventListener("blur", checkUsername); /* 
 function checkPassword()
 {
     const input=document.querySelector("#password");
-    const errorSpan=input.nextElementSibling;/* serve a selezionare lo span che segue l'input */
+    const errorSpan=input.nextElementSibling;
     const inputPassword=input.value.trim(); /* rimuovo gli spazi iniziali e finali dela stringa */
 
     if(inputPassword.length<8)
@@ -223,7 +216,7 @@ document.querySelector("#password").addEventListener("blur", checkPassword); /* 
 function checkConfirmPassword()
 {
     const input=document.querySelector("#conferma_password");
-    const errorSpan=input.nextElementSibling;/* serve a selezionare lo span che segue l'input */
+    const errorSpan=input.nextElementSibling;
     const inputConfirmPassword=input.value.trim(); /* rimuovo gli spazi iniziali e finali dela stringa */
 
     const passWordInput=document.querySelector("#password");

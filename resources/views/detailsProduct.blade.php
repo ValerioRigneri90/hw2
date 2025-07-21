@@ -220,6 +220,50 @@
                     </div>
                 </div>
         </div>
+
+        <!-- Sezione Recensioni -->
+        <div class="reviews-section">
+            <h2>Recensioni</h2>
+
+            <!-- Form per aggiungere una recensione - Solo utenti loggati -->
+            @if($flag)
+                <form action="{{ route('product.review.store') }}" method="POST" class="review-form">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $idProduct }}">
+                    <!-- Con il campo hidden, il server sa a quale prodotto appartiene la recensione! -->
+
+                    <input type="text" name="nome" placeholder="Il tuo nome" required maxlength="100">
+
+                    <input type="number" name="voto" placeholder="Voto (1-5)" min="1" max="5" required>
+
+                    <textarea name="commento" placeholder="Scrivi la tua recensione..." required maxlength="300" rows="3"></textarea>
+
+                    <button type="submit">Invia Recensione</button>
+                </form>
+            @else
+                <div class="login-message">
+                    <p>Devi essere <a href="{{ route('login') }}">loggato</a> per scrivere una recensione.</p>
+                </div>
+            @endif
+
+            <!-- Lista delle recensioni -->
+            @if($reviews->count() > 0)
+                <div class="reviews-list">
+                    <h3>Recensioni ({{ $reviews->count() }})</h3>
+                    @foreach($reviews as $review)
+                        <div class="review">
+                            <div class="review-top">
+                                <strong>{{ $review->nome }}</strong>
+                                <span class="stars">{{ $review->voto }}/5 ⭐</span>
+                            </div>
+                            <p>{{ $review->commento }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="no-reviews">Nessuna recensione. Sii il primo!</p>
+            @endif
+        </div>
     </div>
     </main>
 

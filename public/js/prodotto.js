@@ -31,7 +31,8 @@ this.classList.add("active");
 
 function onResponse(response) {
     if (!response.ok) {
-        throw new Error('Errore nella risposta del server: ' + response.status);
+        console.error('Errore nella risposta del server: ' + response.status);
+        return { success: false, message: 'Errore nella risposta del server: ' + response.status };
     }
     return response.json();
 }
@@ -63,7 +64,7 @@ function aggiungiAlCarrello() {
         return;
     }
 
-    const quantita = document.getElementById('quantity').value;
+    const quantita = document.querySelector('#quantity').value;
     const prodottoId = document.querySelector('.add-to-cart-btn').dataset.productId;
 
     if (!prodottoId) {
@@ -85,8 +86,7 @@ function aggiungiAlCarrello() {
         }
     })
     .then(onResponse)
-    .then(onJson)
-    .catch(onError);
+    .then(onJson);
 }
 
 function inizializza() {

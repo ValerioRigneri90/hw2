@@ -379,14 +379,9 @@ div.menu-container.mega-menu-open > img {
 .add-to-cart-btn:hover {
     background: linear-gradient(135deg, #e46b00, #d45a00);
     border-color: #e46b00;
-    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(244, 124, 0, 0.4);
 }
 
-.add-to-cart-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(244, 124, 0, 0.3);
-}
 
 .shipping-info {
     padding: 1.5rem;
@@ -662,6 +657,10 @@ form button:hover {
         margin-left:15px;
     }
 
+    .second-menu li span {
+        margin-left: 35px;
+    }
+
     .menu-container:hover .menu,
     .menu-container:hover .second-menu {
         background-color: #1F2021;
@@ -690,7 +689,7 @@ form button:hover {
     .second-menu img {
         width: 30px;
         height: 30px;
-        margin-left: 3px;
+        margin-left: -20px;
     }
 
     .menu-container {
@@ -725,6 +724,10 @@ form button:hover {
         border: 1px solid white;
         border-radius: 3px;
         background: rgba(255, 255, 255, 0.1);
+    }
+
+    .has-submenu {
+        order: 1;
     }
 
     .has-submenu > a {
@@ -923,6 +926,11 @@ form button:hover {
 }
 
 @media (max-width: 768px) {
+    .search-container {
+        order: -1;
+        margin-bottom: 15px;
+    }
+
     .search-form {
         background-color: rgba(255, 255, 255, 0.15);
         padding: 8px 12px;
@@ -933,15 +941,155 @@ form button:hover {
     #ricerca {
         width: 140px;
         font-size: 16px;
+        color: white !important;
+    }
+
+    #ricerca::placeholder {
+        color: white !important;
     }
 
     #ricerca:focus {
         width: 160px;
+        color: white !important;
     }
 
     .search-icon {
         width: 20px;
         height: 20px;
         margin-right: 10px;
+    }
+}
+
+/* Sezione Recensioni */
+.reviews-section {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.reviews-section h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* Form recensione semplificato */
+.review-form {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.review-form button {
+    background: #f47c00;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.review-form button:hover {
+    background: #f47c00;
+}
+
+
+/* Lista recensioni semplificata */
+.reviews-list h3 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.review {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.review-top strong {
+    color: #333;
+}
+
+.stars {
+    font-size: 1.1rem;
+}
+
+.review p {
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.no-reviews {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.login-message {
+    text-align: center;
+    padding: 2rem;
+    background: #f0f8ff;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.login-message p {
+    margin: 0;
+    color: #333;
+}
+
+.login-message a {
+    color: #e46b00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-message a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reviews-section {
+        margin: 2rem auto;
+        padding: 0 0.5rem;
+    }
+
+    .review-form {
+        padding: 1rem;
+    }
+
+    .review-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
     }
 }

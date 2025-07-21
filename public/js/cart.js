@@ -20,9 +20,6 @@ function aggiungiAlCarrello(prodotto_id, quantita = 1) {
             alert('Prodotto aggiunto al carrello!');
             location.reload();
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
     });
 }
 

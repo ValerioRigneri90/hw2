@@ -36,6 +36,8 @@ Route::get("products/{categoria}",[ProductController::class,"showProducts"])->na
 
 Route::get("product/{id}",[ProductController::class,"showProductDetails"])->name("product");
 
+Route::post("product/review", [ProductController::class, "storeReview"])->name("product.review.store");
+
 Route::get("searchProduct", [ProductController::class, "searchProduct"])->name("searchProduct");
 
 

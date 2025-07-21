@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\DescriptionProduct;
 use App\Models\ProductImage;
+use App\Models\Review;
 class ProductController extends Controller
 {
 public function showProducts($categoria=null)
@@ -76,11 +77,13 @@ else
 
 }
 
-return view("products")->with("products",$products)
-                        ->with("titolo_categoria",$titolo_categoria)
-                        ->with("categoria",$categoria)
-                        ->with("username",$username)
-                        ->with("flag",$flag);
+return view("products", [
+    'products' => $products,
+    'titolo_categoria' => $titolo_categoria,
+    'categoria' => $categoria,
+    'username' => $username,
+    'flag' => $flag
+]);
 
     }
 
@@ -134,13 +137,13 @@ if($user_id)
         if($temp) //se la descrizione esiste
         {
             $descriptionProduct = $temp->content;
-            $descriptionProduct=$descrizione=preg_split('/(?<=[.?!])\s+/', $descriptionProduct);// Divido la descrizione in un array di frasi, utilizzando il punto come delimitatore
-            $descriptionProduct=array_map("trim", $descriptionProduct); // Rimuovo gli spazi vuoti all'inizio e alla fine di ogni frase
+            $descriptionProduct = preg_split('/(?<=[.?!])\s+/', $descriptionProduct);// Divido la descrizione in un array di frasi, utilizzando il punto come delimitatore
+            $descriptionProduct = array_map("trim", $descriptionProduct); // Rimuovo gli spazi vuoti all'inizio e alla fine di ogni frase
         }
 
         else
         {
-            $descriptionProduct="Descrizione non disponibile";
+            $descriptionProduct = ["Descrizione non disponibile"]; // Array invece di stringa
         }
 
         $result3=ProductImage::where("productId",$productId)->orderBy("orderVisualisation","asc")->get(["nameImage"]);
@@ -164,12 +167,26 @@ if($user_id)
         {
             $immagini=["Immagine non disponibile"];
         }
+
+        // Recupera le recensioni per questo prodotto
+        $reviews = Review::where('product_id', $productId)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+        return view("detailsProduct", [
+            'nameProduct' => $nameProduct,
+            'username' => $username,
+            'flag' => $flag,
+            'descriptionProduct' => $descriptionProduct,
+            'immagini' => $immagini,
+            'priceProduct' => $priceProduct,
+            'idProduct' => $productId,
+            'reviews' => $reviews
+        ]);
     }
 
-        return view("detailsProduct")->with("nameProduct",$nameProduct)
-        ->with("username",$username)->with("flag",$flag)->
-        with("descriptionProduct",$descriptionProduct)->with("immagini",$immagini)
-       ->with("priceProduct",$priceProduct)->with("idProduct",$productId);
+    // Se productId è nullo, reindirizza alla home
+    return redirect()->route('index');
 
 
     }
@@ -195,12 +212,34 @@ if($user_id)
             $products = Product::where('name', 'like', '%' . $search . '%')->get();
         }
 
-        return view('searchProduct')
-            ->with('products', $products)
-            ->with('titolo_categoria', $titolo_categoria)
-            ->with('username', $username)
-            ->with('flag', $flag)
-            ->with('search', $search);
+        return view('searchProduct', [
+            'products' => $products,
+            'titolo_categoria' => $titolo_categoria,
+            'username' => $username,
+            'flag' => $flag,
+            'search' => $search
+        ]);
+    }
+
+    public function storeReview(Request $request)
+    {
+        // Controllo se l'utente è loggato
+        $user_id = Session::get("user_id");
+        if (!$user_id) {
+            return redirect()->route('login');
+        }
+
+        // Controllo  se i campi sono settati
+        if ($request->input('product_id') && $request->input('nome') && $request->input('commento') && $request->input('voto')) {
+            Review::create([
+                'product_id' => $request->input('product_id'),
+                'nome' => $request->input('nome'),
+                'commento' => $request->input('commento'),
+                'voto' => $request->input('voto')
+            ]);
+        }
+
+        return redirect()->route('product', $request->input('product_id'));
     }
 
 }

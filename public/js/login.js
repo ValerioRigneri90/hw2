@@ -4,9 +4,9 @@ subMenButton.addEventListener("click",showSectionSubmenu);
 function showSectionSubmenu(event) {
     event.preventDefault();
     const subMenu=document.querySelector(".submenu");
-    const subMenuDisplay=window.getComputedStyle(subMenu).display;
+    const subMenuDisplay = subMenu.style.display;
 
-    if(subMenuDisplay=="none")
+    if(subMenuDisplay === "none" || subMenuDisplay === "")
     {
         subMenu.style.display="block";
         subMenButton.textContent="-";
@@ -168,21 +168,25 @@ function bloccaButtonFooter(event) {
 
 // FUNZIONI SEMPLICI PER RESET PASSWORD
 function openResetModal() {
-    document.getElementById('resetModal').style.display = 'block';
-    document.getElementById('step1').style.display = 'block';
-    document.getElementById('step2').style.display = 'none';
-    document.getElementById('resetMessage').innerHTML = '';
-}
+    document.querySelector('#resetModal').style.display = 'block';
+    document.querySelector('#step1').style.display = 'block';
+    document.querySelector('#step2').style.display = 'none';
 
+
+    const resetMessage = document.querySelector('#resetMessage');
+    resetMessage.textContent = '';
+}
 function closeResetModal() {
-    document.getElementById('resetModal').style.display = 'none';
+    document.querySelector('#resetModal').style.display = 'none';
 }
 
 function sendCode() {
-    const email = document.getElementById('resetEmail').value;
+    const email = document.querySelector('#resetEmail').value;
 
     if (!email) {
-        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">Inserisci email</div>';
+        const resetMessage = document.querySelector('#resetMessage');
+        resetMessage.textContent = 'Inserisci email';
+        resetMessage.style.color = 'red';
         return;
     }
 
@@ -190,16 +194,19 @@ function sendCode() {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
 
     if (!emailRegex.test(email)) {
-        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">Email non valida</div>';
+        const resetMessage = document.querySelector('#resetMessage');
+        resetMessage.textContent = 'Email non valida';
+        resetMessage.style.color = 'red';
         return;
     }
 
-
     // Pulisci eventuali messaggi precedenti
-    document.getElementById('resetMessage').innerHTML = '';
+    const resetMessage = document.querySelector('#resetMessage');
+    resetMessage.textContent = '';
 
     // Mostra "Invio..." solo quando effettivamente inviamo
-    document.getElementById('resetMessage').innerHTML = '<div style="color:blue;">Invio...</div>';
+    resetMessage.textContent = 'Invio...';
+    resetMessage.style.color = 'blue';
 
     fetch('/send-reset-code', {
         method: 'POST',
@@ -210,20 +217,24 @@ function sendCode() {
         body: JSON.stringify({ email: email })
     }).then(onResponsePassword).then(onJsonPassword);
 }function resetPassword() {
-    const email = document.getElementById('resetEmail').value;
-    const code = document.getElementById('resetCode').value;
-    const password = document.getElementById('newPassword').value;
+    const email = document.querySelector('#resetEmail').value;
+    const code = document.querySelector('#resetCode').value;
+    const password = document.querySelector('#newPassword').value;
 
     if (!code || !password) {
-        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">Compila campi</div>';
+        const resetMessage = document.querySelector('#resetMessage');
+        resetMessage.textContent = 'Compila campi';
+        resetMessage.style.color = 'red';
         return;
     }
 
     // Pulisci eventuali messaggi precedenti
-    document.getElementById('resetMessage').innerHTML = '';
+    const resetMessage = document.querySelector('#resetMessage');
+    resetMessage.textContent = '';
 
     // Mostra "Aggiorno..." solo quando effettivamente inviamo
-    document.getElementById('resetMessage').innerHTML = '<div style="color:blue;">Aggiorno...</div>';
+    resetMessage.textContent = 'Aggiorno...';
+    resetMessage.style.color = 'blue';
 
     fetch('/reset-password', {
         method: 'POST',
@@ -244,12 +255,15 @@ function onResponsePassword(response) {
 }
 
 function onJsonPassword(json) {
+    const resetMessage = document.querySelector('#resetMessage');
+
     if (json.success) {
-        document.getElementById('resetMessage').innerHTML = '<div style="color:green;">' + json.success + '</div>';
+        resetMessage.textContent = json.success;
+        resetMessage.style.color = 'green';
 
         if (json.success === 'Codice inviato!') {
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
+            document.querySelector('#step1').style.display = 'none';
+            document.querySelector('#step2').style.display = 'block';
         }
 
         if (json.success === 'Password aggiornata!') {
@@ -258,6 +272,7 @@ function onJsonPassword(json) {
             }, 2000);
         }
     } else {
-        document.getElementById('resetMessage').innerHTML = '<div style="color:red;">' + json.error + '</div>';
+        resetMessage.textContent = json.error;
+        resetMessage.style.color = 'red';
     }
 }

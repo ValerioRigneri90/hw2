@@ -791,6 +791,10 @@ html, body {
         margin-left:15px;
     }
 
+    .second-menu li span {
+        margin-left: 35px;
+    }
+
     .menu-container:hover .menu,
     .menu-container:hover .second-menu {
         background-color: #1F2021;
@@ -820,7 +824,7 @@ html, body {
     .second-menu img {
         width: 30px;
         height: 30px;
-        margin-left: 3px;
+        margin-left: -20px;
     }
 
     section, header, .content-wrapper {
@@ -873,6 +877,7 @@ html, body {
         box-shadow: none;
         border-radius: 0;
         margin-left: 0;
+        margin-bottom: 15px;
         padding: 0;
         width: 100%;
         min-width: auto;
@@ -1148,148 +1153,6 @@ form button:hover {
     color: #f47c00;
 }
 
-
-.bg-change-button {
-    position: absolute;
-    bottom: 180px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-}
-
-.bg-change-button::after {
-    content: '';
-    width: 12px;
-    height: 12px;
-    border-top: 3px solid #555;
-    border-right: 3px solid #555;
-    transform: rotate(45deg);
-    transition: transform 0.3s ease;
-}
-
-.bg-change-button:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.bg-change-button.active::after {
-    transform: rotate(225deg);
-}
-
-@media (max-width: 768px) {
-    .bg-change-button {
-        bottom: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        z-index: 990;
-    }
-
-    .bg-change-button::after {
-        width: 10px;
-        height: 10px;
-        border-width: 2px;
-    }
-}
-
-.video-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-.dreame-content {
-    position: absolute;
-    top:12%;
-    left: 10%;
-    transform: translateY(-50%);
-    text-align: left;
-    white-space: nowrap;
-
-}
-
-.dreame-title {
-    color:#caad84;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom:40px;
-}
-
-.dreame-subtitle,.dreame-description {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 50;
-    font-size:20px;
-    color:white;
-    font-style:italic;
-    margin-bottom:30px;
-}
-
-.dreame-button {
-    display: inline-block;
-    padding: 8px 18px;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    border: 2px solid white;
-    border-radius: 4px;
-    background-color: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dreame-button:hover
-{
-
-  background-color: white;
-    color: black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-@media (max-width: 768px) {
-    .dreame-content {
-        bottom: 50%;
-        left: -2%;
-        text-align: left;
-        white-space: normal;
-        margin-top: 50px;
-    }
-
-    .dreame-title {
-        font-size: 30px;
-        margin-bottom: 60px;
-    }
-
-    .dreame-subtitle,
-    .dreame-description {
-        font-size: 20px;
-        padding-bottom: 10px;
-    }
-
-    .dreame-button {
-        font-size: 14px;
-        padding: 6px 14px;
-        margin-top: 2px;
-    }
-}
-
 .has-submenu {
     position: relative;
 }
@@ -1411,17 +1274,23 @@ form button:hover {
     .search-form {
         background-color: rgba(255, 255, 255, 0.15);
         padding: 8px 12px;
-        margin: 5px 0;
+        margin: 5px 0 20px 0;
         width: 90%;
     }
 
     #ricerca {
         width: 140px;
         font-size: 16px;
+        color: white !important;
+    }
+
+    #ricerca::placeholder {
+        color: white !important;
     }
 
     #ricerca:focus {
         width: 160px;
+        color: white !important;
     }
 
     .search-icon {

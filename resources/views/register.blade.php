@@ -5,19 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrazione</title>
     <link rel="stylesheet" href="{{ asset('css/registrazione.css') }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> <!--  protezione CSRF-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="{{ asset("js/registrazione.js") }}" defer> </script>
 
     <script>
-
-    window.flag = false; /* utente non loggato -> questa varibile viene utilizzata per determinare se l'utente è loggato o meno
-     e sarà sempre false in questa pagina poiché l'utente non è loggato */
-</script>
-
-
-
-
+    window.flag = false; /* utente non loggato -> questa variabile viene utilizzata per determinare se l'utente è loggato o meno
+     e sarà sempre false in questa pagina poiché l'utente non è loggato ,serve a bloccare l'acesso al carrello*/
+    </script>
 </head>
 <body>
 
@@ -110,8 +105,6 @@
         <div class="register-form-wrapper">
             <h1>Registrati</h1>
             <p class="register-subtitle">Registrarti al tuo account Dreame</p>
-
-
 
             @if($error=="empty_fields")
                 <div class="error-message">Per favore, compila tutti i campi obbligatori!</div>

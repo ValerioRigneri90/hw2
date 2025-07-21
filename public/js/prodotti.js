@@ -4,9 +4,9 @@ subMenButton.addEventListener("click",showSectionSubmenu);
 function showSectionSubmenu(event) {
     event.preventDefault();
     const subMenu=document.querySelector(".submenu");
-    const subMenuDisplay=window.getComputedStyle(subMenu).display;
+    const subMenuDisplay = subMenu.style.display;
 
-    if(subMenuDisplay=="none")
+    if(subMenuDisplay === "none" || subMenuDisplay === "")
     {
         subMenu.style.display="block";
         subMenButton.textContent="-";
