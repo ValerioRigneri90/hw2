@@ -163,28 +163,7 @@ h1 {
     font-weight: 600;
 }
 
-.checkout-btn {
-    display: inline-block;
-    width: 100%;
-    max-width: 400px;
-    padding: 16px 32px;
-    background: #1a1a1a;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 600;
-    text-align: center;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
-}
 
-.checkout-btn:hover {
-    background: #374151;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
 
 .continua-shopping {
     display: inline-block;
@@ -260,11 +239,6 @@ p {
         font-size: 1.5em;
     }
 
-    .checkout-btn {
-        width: 100%;
-        font-size: 1em;
-    }
-
     .continua-shopping {
         width: 100%;
     }
@@ -307,7 +281,6 @@ p {
 }
 
 button:active,
-.checkout-btn:active,
 .continua-shopping:active {
     transform: translateY(0);
 }

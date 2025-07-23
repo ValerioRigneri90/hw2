@@ -20,7 +20,7 @@ Route::get("logout",[LoginController::class, 'logout'])->name('logout');
 Route::get('login', [LoginController::class, 'login_form'])->name('login');
 Route::post('login', [LoginController::class, 'do_login'])->name('do_login');
 
-// Route semplici per reset password
+
 Route::post('/send-reset-code', [LoginController::class, 'sendResetCode']);
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
 
@@ -47,10 +47,5 @@ Route::post("/newsletter/subscribe", [NewsletterController::class, "subscribe"])
 Route::get("cart", [CartController::class, "showCart"])->name("cart.show");
 
 Route::post("cart/action", [CartController::class, "handleCartAction"])->name("cart.action");
-
-
-Route::get("checkout", [CartController::class, "showCheckout"])->name("checkout.show");
-
-Route::get("checkout/success", [CartController::class, "checkoutSuccess"])->name("checkout.success");
 
 

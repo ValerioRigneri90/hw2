@@ -22,12 +22,12 @@ class LoginController extends Controller
         controlliamo se nella sessione c'è un user_id
         */
 
-        $flag = false;
+
         if(Session::get("user_id"))
     {
-            $flag=true;
+
             return redirect()->route("index"); // Se l'utente è già loggato, reindirizza alla home
-        }
+    }
 
 
 
@@ -35,7 +35,7 @@ class LoginController extends Controller
         Session::forget('error'); /*
         alla prossima richiesta potrebbe esserci un altro tipo di errore ,altrimenti
         l'utente visualizza sempre lo stesso errore quando l'utente torna al login cioè alla view */
-        return view('login')->with("error",$error)->with("flag",$flag); // Mostra la pagina di login
+        return view('login')->with("error",$error); // Mostra la pagina di login
     }
 
 
@@ -58,7 +58,7 @@ public function do_login()
     if(strlen(request("email"))==0 || strlen(request("password"))==0)
     {
             Session::put('error', 'empty_fields');
-            return redirect()->route("login") -> withInput(); // Reindirizza alla pagina di login mantendo i
+            return redirect()->route("login") -> withInput(); // Reindirizza alla pagina di login mantendo i dati inseriti
 
     }
 
@@ -86,14 +86,16 @@ public function logout()
     return redirect()->route("index"); // Reindirizza alla home page dopo il logout
 }
 
-// METODI SEMPLICI PER RESET PASSWORD
+
 public function sendResetCode(Request $request)
 {
     $email = $request->input('email');
 
+
     // Trova utente
     $user = User::where('email', $email)->first();
-    if (!$user) {
+    if (!$user)
+    {
         return response()->json(['error' => 'Email non trovata']);
     }
 
@@ -120,9 +122,11 @@ public function resetPassword(Request $request)
 
     // Trova utente
     $user = User::where('email', $email)->first();
-    if (!$user) {
+    if (!$user)
+        {
         return response()->json(['error' => 'Email non trovata']);
     }
+
 
     // Verifica codice
     if ($user->reset_code != $code) {

@@ -214,19 +214,19 @@
             <div id="step1" class="modal-step">
                 <p class="step-title">Inserisci la tua email:</p>
                 <input type="email" id="resetEmail" placeholder="La tua email" class="modal-input">
-                <button onclick="sendCode()" class="btn btn-primary">Invia Codice</button>
+                <button class="btn btn-primary">Invia Codice</button>
             </div>
 
             <!-- STEP 2: Inserisci Codice e Nuova Password -->
-            <div id="step2" class="modal-step" style="display:none;">
+            <div id="step2" class="modal-step">
                 <p class="step-title">Inserisci il codice e la nuova password:</p>
                 <input type="text" id="resetCode" placeholder="Codice (6 cifre)" class="modal-input">
                 <input type="password" id="newPassword" placeholder="Nuova Password" class="modal-input">
-                <button onclick="resetPassword()" class="btn btn-success">Cambia Password</button>
+                <button class="btn btn-success">Cambia Password</button>
             </div>
 
             <div class="modal-footer">
-                <button onclick="closeResetModal()" class="btn btn-secondary">Chiudi</button>
+                <button class="btn btn-secondary">Chiudi</button>
             </div>
         </div>
     </div>

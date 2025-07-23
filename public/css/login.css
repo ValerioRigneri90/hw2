@@ -880,6 +880,11 @@ form button:hover {
 }
 
 
+#step2
+{
+    display: none;
+}
+
 .menu-container:hover .search-form,
 .menu-container.mega-menu-open .search-form {
     background-color: rgba(0, 0, 0, 0.05);
@@ -937,9 +942,8 @@ form button:hover {
     }
 }
 
-/* ============ STILI MODAL RESET PASSWORD ============ */
 
-/* Overlay del modal */
+
 .reset-modal {
     display: none;
     position: fixed;

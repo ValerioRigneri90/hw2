@@ -15,15 +15,15 @@ public function showIndex()
     $username = null; // Inizializza username a null
     //permettiamo anche agli utenti non loggati di vedere la pagina index
 
-    $user_id = Session::get("user_id"); //recuperiamo l'ID dell'utente dalla sessione
+    $user_id = Session::get(key: "user_id"); //recuperiamo l'ID dell'utente dalla sessione
 
 if($user_id)
 {
-    $user=User::find($user_id); //ritorna l'oggetto(record) di quell'utente con l'id specificato
+        $user=User::find($user_id); //ritorna l'oggetto(record) di quell'utente con l'id specificato
     if($user)
     {
         $username = $user->username;
-        $flag = true;
+        $flag = true;// in modo da visualizzare il nome utente nella navbar
     }
 
 }
@@ -40,13 +40,11 @@ public function showTestimonials()
     curl_setopt($curl, CURLOPT_URL, "https://randomuser.me/api/?results=5");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, [
-        "User-Agent: Laravel App"
-    ]);
 
 
 
-    $result=curl_exec($curl);
+
+    $result=curl_exec($curl); // Esegue la richiesta cURL e memorizza il risultato
     $err=curl_error($curl);
 
     curl_close($curl);

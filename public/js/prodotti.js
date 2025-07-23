@@ -111,9 +111,8 @@ function onResponseNewsletter(response) {
 
 
 
-const butttonFooter=document.querySelector("#footer-button");
-butttonFooter.addEventListener("click",bloccaButtonFooter);
-
+const newsletterForm = document.querySelector(".newsletter-container form");
+newsletterForm.addEventListener("submit", bloccaButtonFooter);
 
 function bloccaButtonFooter(event) {
     event.preventDefault();

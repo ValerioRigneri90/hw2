@@ -16,7 +16,7 @@ public function showProducts($categoria=null)
 
     $flag=false;
     $username = null; // Inizializza username a null
-    //permettiamo anche agli utenti non loggati di vedere la pagina index
+
 
     $user_id = Session::get("user_id"); //recuperiamo l'ID dell'utente dalla sessione
 
@@ -96,7 +96,7 @@ return view("products", [
     $percorso="immagini/prodotti/immagini_Prodotti/";
     $flag=false;
     $username = null; // Inizializza username a null
-    //permettiamo anche agli utenti non loggati di vedere la pagina index
+
     $productId = null; // Inizializza productId a null
 
     $user_id = Session::get("user_id"); //recuperiamo l'ID dell'utente dalla sessione
@@ -116,9 +116,8 @@ if($user_id)
     if($productId!=null && !empty($productId) && $productId!=0)
     {
 
-        $result=Product::where("id",$productId)->get(["name","price"]);
+        $product = Product::find($productId, ["name","price"]);
 
-        $product=$result->first(); // Recupera il primo prodotto corrispondente all'ID
 
         if($product)
         {
@@ -131,8 +130,8 @@ if($user_id)
             return redirect()->route('index'); // Reindirizza alla pagina index se il prodotto non esiste
         }
 
-        $result2=DescriptionProduct::where("productId",$productId)->get(["content"]);
-        $temp=$result2->first(); // Recupera la prima descrizione del prodotto
+        $temp = DescriptionProduct::where("productId", $productId)->first(["content"]);
+
 
         if($temp) //se la descrizione esiste
         {
@@ -155,9 +154,11 @@ if($user_id)
             $immagini=[];
 
 
+
             foreach($result3 as $img)
             {
-                 $percorsoCompleto = $percorso . $productId . "/" . $img->nameImage;
+
+                $percorsoCompleto = $percorso . $productId . "/" . $img->nameImage;
                 $immagini[] = $percorsoCompleto;
 
             }

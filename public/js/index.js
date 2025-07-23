@@ -3,17 +3,16 @@ function showTestimonials(event)
 
     const testimonialH2=document.querySelector(".testimonial-container h2");
     const testimonialWrapper=document.querySelector(".testimonial-wrapper");
-    const button=event.target;
+    const button=event.target; // Il bottone che ha scatenato l'evento
     const h2Display = testimonialH2.style.display;
     const wrapperDisplay = testimonialWrapper.style.display;
-
     if(wrapperDisplay=="flex" && h2Display=="block")
     {
         testimonialH2.style.display="none";
         testimonialWrapper.style.display="none";
         button.textContent="Leggi di più";
-        clearInterval(button.timer);
-        button.timer = null;
+        clearInterval(button.timer); //fermo il timer se esiste
+        button.timer = null; // leviamo il riferimento al timer dal bottone
     }
     else
     {
@@ -140,10 +139,7 @@ function onResponse(response) {
 function onJson(json) {
     const testimonialWrapper = document.querySelector(".testimonial-wrapper");
 
-   
-    while (testimonialWrapper.firstChild) {
-        testimonialWrapper.removeChild(testimonialWrapper.firstChild);
-    }
+    testimonialWrapper.innerHTML = ""; // pulisco il contenitore esistente
 
 if(json.error)
 {
@@ -165,8 +161,7 @@ if(!json.results || json.results.length === 0)
 
 
     for (user of json.results) {
-        let randomIndex = Math.floor(Math.random() * frasi.length);
-        let fraseScelta = frasi.splice(randomIndex, 1)[0];
+        let fraseScelta = frasi[Math.floor(Math.random() * frasi.length)];
         let testimonial = {
             name: user.name.first + " " + user.name.last,
             image: user.picture.large,
@@ -209,7 +204,7 @@ if(!json.results || json.results.length === 0)
 }
 
 function fakeTestimonials() {
-    testimonials.length = 0;
+    testimonials.length = 0; // svuoto l'array per evitare duplicati
 
     fetch("/api/testimonials")
         .then(onResponse)
@@ -276,7 +271,7 @@ function bloccaCarrello(event)
     event.preventDefault();
     alert("Devi essere loggato per accedere al carrello");
 
-    window.location.href=window.loginUrl;
+    window.location.href=window.loginUrl; //riportiamo l'utente non loggato alla pagina di login
     return;
    }
 
@@ -334,12 +329,11 @@ function onResponseNewsletter(response) {
 
 
 
-const butttonFooter=document.querySelector("#footer-button");
-butttonFooter.addEventListener("click",bloccaButtonFooter);
-
+const newsletterForm = document.querySelector(".newsletter-container form");
+newsletterForm.addEventListener("submit", bloccaButtonFooter);
 
 function bloccaButtonFooter(event) {
-    event.preventDefault();
+   event.preventDefault();
 
     const temp = document.querySelector("#footer-input");
     const value = temp.value.trim();

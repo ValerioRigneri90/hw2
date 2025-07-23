@@ -156,12 +156,20 @@
                     </div>
 
                     <!-- Miniature -->
-                @if(count($immagini) > 1)
+    @if(count($immagini) > 1)
     <div class="thumbnail-gallery">
-        @foreach($immagini as $i => $img)
-            <div class="thumbnail{{ $i == 0 ? ' active' : '' }}">
-                <img src="{{ asset($img) }}" alt="Miniatura">
-            </div>
+        @foreach($immagini as $img)
+            @if($img === $immagini[0])
+                <!-- Prima immagine - attiva -->
+                <div class="thumbnail active">
+                    <img src="{{ asset($img) }}" alt="Miniatura">
+                </div>
+            @else
+                <!-- Altre immagini - non attive -->
+                <div class="thumbnail">
+                    <img src="{{ asset($img) }}" alt="Miniatura">
+                </div>
+            @endif
         @endforeach
     </div>
 @endif

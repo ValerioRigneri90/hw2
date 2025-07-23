@@ -60,7 +60,6 @@
 
             <div class="carrello-totale">
                 <h2>Totale: €{{ number_format($totale, 2, ',', '.') }}</h2>
-                <a href="{{ route('checkout.show') }}" class="checkout-btn">Procedi al Checkout</a>
             </div>
         @else
             <div class="empty-cart-container">

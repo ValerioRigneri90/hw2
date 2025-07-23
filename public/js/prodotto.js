@@ -29,6 +29,9 @@ for(let item of miniature)
 this.classList.add("active");
 }
 
+
+
+
 function onResponse(response) {
     if (!response.ok) {
         console.error('Errore nella risposta del server: ' + response.status);
@@ -216,10 +219,8 @@ function onResponseNewsletter(response) {
 }
 
 
-
-const butttonFooter=document.querySelector("#footer-button");
-butttonFooter.addEventListener("click",bloccaButtonFooter);
-
+const newsletterForm = document.querySelector(".newsletter-container form");
+newsletterForm.addEventListener("submit", bloccaButtonFooter);
 
 function bloccaButtonFooter(event) {
     event.preventDefault();

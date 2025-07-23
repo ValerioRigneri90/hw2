@@ -35,44 +35,7 @@ class CartController extends Controller
                           ->with("flag", $flag);
     }
 
-    public function showCheckout()
-    {
-        $flag = false;
-        $username = null;
 
-        $user_id = Session::get("user_id");
-        if ($user_id) {
-            $user = User::find($user_id);
-            if ($user) {
-                $username = $user->username;
-                $flag = true;
-            }
-        } else {
-            return redirect()->route("login");
-        }
-
-        $carrello_items = $this->getCarrelloItems();
-        $totale = $this->getTotaleCarrello();
-
-        return view("checkout")->with("carrello_items", $carrello_items)
-                              ->with("totale", $totale)
-                              ->with("username", $username)
-                              ->with("flag", $flag)
-                              ->with("is_success", false);
-    }
-
-    public function checkoutSuccess(Request $request)
-    {
-        $order_id = $request->input('orderID', '');
-        $totale = $this->getTotaleCarrello();
-
-        // Svuota il carrello
-        Session::forget('carrello');
-
-        return view("checkout")->with("order_id", $order_id)
-                              ->with("totale", $totale)
-                              ->with("is_success", true);
-    }
 
     private function inizializzaCarrello()
     {

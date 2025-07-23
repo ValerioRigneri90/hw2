@@ -21,12 +21,7 @@
             window.flag = true; // utente loggato
         @else
             window.flag = false; // utente non loggato
-
         @endif
-
-
-
-
 </script>
 </head>
 

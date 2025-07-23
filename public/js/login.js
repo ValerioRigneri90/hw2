@@ -129,17 +129,15 @@ function onJsonNewsletter(json)
 }
 
 
-
-// prendiamo la risposta del server e laconvertiamo in oggetto javascript
+// prendiamo la risposta del server e laconvertiamo in formato json
 function onResponseNewsletter(response) {
     return response.json();
 }
 
 
 
-const butttonFooter=document.querySelector("#footer-button");
-butttonFooter.addEventListener("click",bloccaButtonFooter);
-
+const newsletterForm = document.querySelector(".newsletter-container form");
+newsletterForm.addEventListener("submit", bloccaButtonFooter);
 
 function bloccaButtonFooter(event) {
     event.preventDefault();
@@ -156,7 +154,7 @@ function bloccaButtonFooter(event) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // ← CORRETTO
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
                 email: value
@@ -166,7 +164,19 @@ function bloccaButtonFooter(event) {
     }
 }
 
-// FUNZIONI SEMPLICI PER RESET PASSWORD
+
+
+
+buttonClose=document.querySelector(".btn.btn-secondary");
+buttonClose.addEventListener("click", closeResetModal);
+
+function closeResetModal() {
+    document.querySelector('#resetModal').style.display = 'none';
+}
+
+
+
+
 function openResetModal() {
     document.querySelector('#resetModal').style.display = 'block';
     document.querySelector('#step1').style.display = 'block';
@@ -176,9 +186,12 @@ function openResetModal() {
     const resetMessage = document.querySelector('#resetMessage');
     resetMessage.textContent = '';
 }
-function closeResetModal() {
-    document.querySelector('#resetModal').style.display = 'none';
-}
+
+
+
+
+    const buttonSendCode = document.querySelector('.btn.btn-primary');
+    buttonSendCode.addEventListener('click', sendCode);
 
 function sendCode() {
     const email = document.querySelector('#resetEmail').value;
@@ -216,7 +229,14 @@ function sendCode() {
         },
         body: JSON.stringify({ email: email })
     }).then(onResponsePassword).then(onJsonPassword);
-}function resetPassword() {
+
+}
+
+
+const buttonResetPassword=document.querySelector('.btn.btn-success');
+buttonResetPassword.addEventListener('click', resetPassword);
+
+function resetPassword() {
     const email = document.querySelector('#resetEmail').value;
     const code = document.querySelector('#resetCode').value;
     const password = document.querySelector('#newPassword').value;
@@ -228,9 +248,11 @@ function sendCode() {
         return;
     }
 
+
     // Pulisci eventuali messaggi precedenti
     const resetMessage = document.querySelector('#resetMessage');
     resetMessage.textContent = '';
+
 
     // Mostra "Aggiorno..." solo quando effettivamente inviamo
     resetMessage.textContent = 'Aggiorno...';
@@ -249,6 +271,9 @@ function sendCode() {
         })
     }).then(onResponsePassword).then(onJsonPassword);
 }
+
+
+
 
 function onResponsePassword(response) {
     return response.json();
